@@ -17,8 +17,8 @@
  */
 
 
-const PROTO_PATH = __dirname + '../../../../proto/greeter.proto';
-
+const PROTO_PATH = __dirname + '/../../proto/greeter.proto';
+console.log('PROTO_PATH: ' + PROTO_PATH);
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const greeterAPI = require('./greeter_api');

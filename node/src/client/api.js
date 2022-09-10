@@ -12,7 +12,7 @@ async function pingPongName(req, res) {
             res.send('rpc sayHello, error: ' + err.details + ', Error code: ' + err.code)
             return
         }
-        console.log('Client rpc sayHello(', req.params, ')')
+        console.log('Node Client rpc sayHello(', req.params, ')')
         res.send(response.message + '\n');
     });
 }

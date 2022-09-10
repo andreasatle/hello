@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  grpc-client:
+    build:
+      context: node
+      dockerfile: Dockerfile.client
+    ports:
+      - '3000:3000'
+  grpc-server:
+    build:
+      context: python
+      dockerfile: Dockerfile.server

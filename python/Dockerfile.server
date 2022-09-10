@@ -1,0 +1,8 @@
+FROM python:alpine
+
+WORKDIR /usr/app/python
+RUN pip install grpcio grpcio-tools
+COPY . .
+RUN python -m grpc_tools.protoc -Iproto --python_out=. --grpc_python_out=. proto/greeter.proto
+
+CMD ["python", "greeter_server.py"]

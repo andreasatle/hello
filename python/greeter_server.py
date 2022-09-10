@@ -21,11 +21,13 @@ import greeter_pb2
 import greeter_pb2_grpc
 import time
 import random
+import sys
 
 class Greeter(greeter_pb2_grpc.GreeterServicer):
 
     def SayHello(self, request, context):
-        print('Python Server rpc sayHello:', request)
+        print('Python Server rpc sayHello("' + request.name + '")')
+        sys.stdout.flush()
         time.sleep(random.random())
         return greeter_pb2.HelloReply(message='Hello, %s!' % request.name)
 
