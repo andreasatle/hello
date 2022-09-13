@@ -2,3 +2,10 @@ node_modules
 package-lock.json
 __pycache__
 *_pb2*
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+docker-pw
+ecr-hello-grpc-client
+ecr-hello-grpc-server

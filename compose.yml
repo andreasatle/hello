@@ -8,5 +8,5 @@ services:
       - '3000:3000'
   grpc-server:
     build:
-      context: python
+      context: node
       dockerfile: Dockerfile.server
