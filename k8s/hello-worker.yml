@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-worker
+  labels:
+    component: hello-worker
+spec:
+  type: ClusterIP
+  selector:
+    component: hello-worker
+  ports:
+  - port: 50051
+    protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-worker
+  labels:
+    component: hello-worker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: hello-worker
+  template:
+    metadata:
+      labels:
+        component: hello-worker
+    spec:
+      containers:
+      - name: hello-worker
+        image: andreasatle/hellov2-grpc-worker-node
+        ports:
+        - containerPort: 50051

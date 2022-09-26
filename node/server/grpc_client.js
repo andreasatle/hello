@@ -1,5 +1,5 @@
 
-const PROTO_PATH = __dirname + '/../../proto/greeter.proto';
+const PROTO_PATH = __dirname + '/../proto/greeter.proto';
 const parseArgs = require('minimist');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
@@ -19,7 +19,8 @@ let target;
 if (argv.target) {
     target = argv.target;
 } else {
-    target = '[::]:50051';
+    target = 'hello-worker:50051';
+    //target = '[::]:50051';
 }
 const client = new hello_proto.Greeter(target, grpc.credentials.createInsecure());
 

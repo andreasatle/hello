@@ -15,26 +15,14 @@
  * limitations under the License.
  *
  */
+const express = require('express');
+const routes = require('./routes');
+const app = express()
+const port = 3000
 
+app.use(routes)
 
-const PROTO_PATH = __dirname + '/../../proto/greeter.proto';
-console.log('PROTO_PATH: ' + PROTO_PATH);
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
-const greeterAPI = require('./greeter_api');
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
 
-const packageDefinition = protoLoader.loadSync(
-    PROTO_PATH, greeterAPI.opt);
-const proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
-
-
-/**
- * Starts an RPC server that receives requests for the Greeter service at the
- * sample server port
- */
-console.log(greeterAPI)
-const server = new grpc.Server();
-server.addService(proto.Greeter.service, greeterAPI);
-server.bindAsync('[::]:50051', grpc.ServerCredentials.createInsecure(), () => {
-    server.start();
-});

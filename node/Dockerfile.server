@@ -9,5 +9,5 @@ RUN npm install
 COPY proto proto
 COPY server server
 
-CMD ["npm", "run", "server"]
+CMD ["npm", "run", "client"]
 

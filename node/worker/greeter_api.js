@@ -20,7 +20,7 @@ opt = {
  */
 async function sayHello(call, callback) {
     await sleep(random(1000));
-    console.log('Node Server rpc sayHello(', call.request, ')');
+    console.log('Node Worker rpc sayHello(', call.request, ')');
     callback(null, { message: 'Hello ' + call.request.name });
 }
 
