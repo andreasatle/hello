@@ -7,7 +7,7 @@ COPY package.json .
 RUN npm install
 
 COPY proto proto
-COPY src src
+COPY client client
 
 CMD ["npm", "run", "client"]
 
