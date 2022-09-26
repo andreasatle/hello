@@ -178,3 +178,63 @@ if __name__ == '__main__':
     run()
 ```
 [Read more about gRPC using python](https://grpc.io/docs/languages/python/)
+
+# Output from Kubernetes
+I'm running k8s with 3 replicas of the server, and 2 replicas for the worker. The state of k8s is as follows:
+```
+(base) ➜  python git:(main) kubectl get all
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/hello-server-6df98cd744-dp6vx   1/1     Running   0          33s
+pod/hello-server-6df98cd744-h4vj6   1/1     Running   0          33s
+pod/hello-server-6df98cd744-hrhgk   1/1     Running   0          33s
+pod/hello-worker-d99d64547-c6sjs    1/1     Running   0          33s
+pod/hello-worker-d99d64547-mtx7w    1/1     Running   0          33s
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/hello-server   NodePort    10.100.146.5    <none>        8080:30000/TCP   33s
+service/hello-worker   ClusterIP   10.106.45.195   <none>        50051/TCP        33s
+service/kubernetes     ClusterIP   10.96.0.1       <none>        443/TCP          34s
+
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-server   3/3     3            3           33s
+deployment.apps/hello-worker   2/2     2            2           33s
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-server-6df98cd744   3         3         3       33s
+replicaset.apps/hello-worker-d99d64547    2         2         2       33s
+
+I run a test with 10 different curls, and the output from the server:
+```
+(base) ➜  python git:(main) kubectl logs hello-server-6df98cd744-dp6vx
+[2022-09-26T18:23:55.465Z] Node Server rpc sayHello( { name: '10-JarJar' } )
+[2022-09-26T18:23:55.998Z] Node Server rpc sayHello( { name: '05-Eric' } )
+
+(base) ➜  python git:(main) kubectl logs hello-server-6df98cd744-h4vj6
+[2022-09-26T18:23:54.804Z] Node Server rpc sayHello( { name: '01-Andy' } )
+[2022-09-26T18:23:55.482Z] Node Server rpc sayHello( { name: '04-David' } )
+[2022-09-26T18:23:55.537Z] Node Server rpc sayHello( { name: '02-Brett' } )
+[2022-09-26T18:23:55.845Z] Node Server rpc sayHello( { name: '08-Hardy' } )
+
+(base) ➜  python git:(main) kubectl logs hello-server-6df98cd744-hrhgk
+[2022-09-26T18:23:44.361Z] Example app listening on port 3000
+[2022-09-26T18:23:54.992Z] Node Server rpc sayHello( { name: '07-Greg' } )
+[2022-09-26T18:23:55.328Z] Node Server rpc sayHello( { name: '03-Cesar' } )
+[2022-09-26T18:23:55.817Z] Node Server rpc sayHello( { name: '09-Indy' } )
+[2022-09-26T18:23:55.885Z] Node Server rpc sayHello( { name: '06-Felix' } )
+```
+The output from the workers:
+```
+(base) ➜  python git:(main) kubectl logs hello-worker-d99d64547-c6sjs
+Python Worker rpc sayHello("01-Andy")
+Python Worker rpc sayHello("08-Hardy")
+Python Worker rpc sayHello("04-David")
+Python Worker rpc sayHello("02-Brett")
+
+(base) ➜  python git:(main) kubectl logs hello-worker-d99d64547-mtx7w
+Python Worker rpc sayHello("07-Greg")
+Python Worker rpc sayHello("06-Felix")
+Python Worker rpc sayHello("03-Cesar")
+Python Worker rpc sayHello("09-Indy")
+Python Worker rpc sayHello("10-JarJar")
+Python Worker rpc sayHello("05-Eric")
+```

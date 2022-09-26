@@ -34,7 +34,7 @@ def run():
         else:
             name = 'you'
         response = stub.SayHello(greeter_pb2.HelloRequest(name=name))
-    print("Python Client rpc SayHello, response: " + response.message)
+    print("Python Server rpc SayHello, response: " + response.message)
 
 
 if __name__ == '__main__':

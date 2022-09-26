@@ -16,10 +16,7 @@ const hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
 
 const argv = parseArgs(process.argv.slice(2), { string: 'target' });
 
-let host = process.env.HOST_HELLO_WORKER;
-if (!host) {
-    host = 'localhost';
-}
+let host = process.env.HOST_HELLO_WORKER || 'localhost';
 let target = host + ':50051';
 const client = new hello_proto.Greeter(target, grpc.credentials.createInsecure());
 
