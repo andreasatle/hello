@@ -15,13 +15,12 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, opt);
 const hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
 
 const argv = parseArgs(process.argv.slice(2), { string: 'target' });
-let target;
-if (argv.target) {
-    target = argv.target;
-} else {
-    target = 'hello-worker:50051';
-    //target = '[::]:50051';
+
+let host = process.env.HOST_HELLO_WORKER;
+if (!host) {
+    host = 'localhost';
 }
+let target = host + ':50051';
 const client = new hello_proto.Greeter(target, grpc.credentials.createInsecure());
 
 module.exports = client;

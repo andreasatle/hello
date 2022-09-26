@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: hello-worker
-        image: andreasatle/hellov2-grpc-worker-node
+        image: andreasatle/hellov2-grpc-worker-python
         ports:
         - containerPort: 50051

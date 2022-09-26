@@ -37,4 +37,7 @@ spec:
         image: andreasatle/hellov2-grpc-server
         ports:
         - containerPort: 3000
+        env:
+        - name: HOST_HELLO_WORKER
+          value: hello-worker
 

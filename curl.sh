@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-URL=localhost:3000
+URL=localhost:30000
 getHTML () {
     ARG=$URL/name/$1
     echo Calling HTTP-server: curl $ARG
