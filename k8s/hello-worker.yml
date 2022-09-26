@@ -10,6 +10,7 @@ spec:
     component: hello-worker
   ports:
   - port: 50051
+    targetPort: 50051
     protocol: TCP
 
 ---
