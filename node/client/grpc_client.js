@@ -19,7 +19,7 @@ let target;
 if (argv.target) {
     target = argv.target;
 } else {
-    target = 'grpc-server:50051';
+    target = '[::]:50051';
 }
 const client = new hello_proto.Greeter(target, grpc.credentials.createInsecure());
 

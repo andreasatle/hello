@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node src/server/greeter_server.js",
-    "client": "node src/client/greeter_client.js",
+    "server": "node server/greeter_server.js",
+    "client": "node client/greeter_client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

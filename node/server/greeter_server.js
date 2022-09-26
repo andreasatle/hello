@@ -35,6 +35,6 @@ const proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
 console.log(greeterAPI)
 const server = new grpc.Server();
 server.addService(proto.Greeter.service, greeterAPI);
-server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+server.bindAsync('[::]:50051', grpc.ServerCredentials.createInsecure(), () => {
     server.start();
 });
